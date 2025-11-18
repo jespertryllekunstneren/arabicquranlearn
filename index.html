@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Qurani - Learn to Read Arabic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- START SCREEN -->
+  <div id="startScreen" class="start wrap">
+    <header>
+      <h1>Qurani • Learn to Read Arabic</h1>
+      <p class="muted">Choose a section to begin. Progress word-by-word and build each word letter-by-letter.</p>
+    </header>
+
+    <section class="catalog" id="catalog"></section>
+  </div>
+
+  <!-- APP SCREEN -->
+  <div id="appScreen" class="app wrap hidden">
+    <header>
+      <h1>Qurani • Learn to Read Arabic</h1>
+      <p class="muted">Start from your chosen surah and progress word by word. Build each word using the keyboard below.</p>
+    </header>
+
+    <section class="topbar">
+      <div class="progress">
+        <span id="surahLabel">Surah 1:1</span>
+        <div class="dots" id="wordDots"></div>
+      </div>
+      <div class="actions">
+        <button id="homeBtn" class="btn btn-outline">⟵ Home</button>
+        <button id="toggleHarakat" class="btn btn-outline">Hide harakat</button>
+        <button id="resetWord" class="btn">Reset word</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="ayah rtl" id="ayahArabic"></div>
+
+      <div class="stage">
+        <p class="stage-title">Build the current word:</p>
+        <div class="slots rtl" id="letterSlots"></div>
+
+        <!-- Phonetics aligned per slot (RTL) + running romanisation -->
+        <div id="phonetics" class="phonetics rtl"></div>
+        <p id="romanProgress" class="roman muted"></p>
+
+        <p id="feedback" class="feedback"></p>
+      </div>
+
+      <div id="quizBlock" class="quiz hidden">
+        <p class="q">Choose the correct transliteration for the word:</p>
+        <div id="quizOptions" class="quiz-options"></div>
+        <p id="quizFeedback" class="quiz-feedback"></p>
+      </div>
+
+      <!-- English meaning/gloss of the built word -->
+      <div id="meaningBlock" class="meaning-block hidden">
+        <p class="meaning-title">Meaning:</p>
+        <p id="wordMeaning" class="meaning-text"></p>
+      </div>
+
+      <div class="nav">
+        <button id="prevWord" class="btn btn-outline">◀ Previous</button>
+        <button id="nextWord" class="btn btn-primary" disabled>Next ▶</button>
+      </div>
+    </section>
+
+    <section class="keyboard" id="keyboard"></section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
