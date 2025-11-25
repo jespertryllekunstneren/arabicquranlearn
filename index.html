@@ -12,17 +12,29 @@
   <div id="startScreen" class="start wrap">
     <header>
       <h1>Qurani • Learn to Read Arabic</h1>
-      <p class="muted">Choose a section to begin. Progress word-by-word and build each word letter-by-letter.</p>
+      <p class="muted">
+        Choose a section to begin. Progress word-by-word and build each word letter-by-letter.
+      </p>
+      <p class="tiny-credit">Nu skal du bare se Ibrahim – fra Jesper</p>
     </header>
+
+    <section class="pre-section">
+      <button id="openAlphabet" class="big-link">
+        Arabic Alphabet &amp; Sounds
+        <span class="big-link-sub">See all letters, their forms and basic pronunciation.</span>
+      </button>
+    </section>
 
     <section class="catalog" id="catalog"></section>
   </div>
 
-  <!-- APP SCREEN -->
+  <!-- APP SCREEN (LEVELS) -->
   <div id="appScreen" class="app wrap hidden">
     <header>
       <h1>Qurani • Learn to Read Arabic</h1>
-      <p class="muted">Start from your chosen surah and progress word by word. Build each word using the keyboard below.</p>
+      <p class="muted">
+        Start from your chosen level and progress word by word. Build each word using the keyboard below.
+      </p>
     </header>
 
     <section class="topbar">
@@ -70,6 +82,33 @@
     </section>
 
     <section class="keyboard" id="keyboard"></section>
+  </div>
+
+  <!-- ALPHABET SCREEN -->
+  <div id="alphabetScreen" class="alphabet wrap hidden">
+    <header>
+      <h1>Arabic Alphabet &amp; Sounds</h1>
+      <p class="muted">
+        Explore all letters, see their different forms and how they are pronounced.
+      </p>
+      <button id="alphaBack" class="btn btn-outline">⟵ Back to levels</button>
+    </header>
+
+    <section class="alphabet-layout">
+      <aside class="alphabet-list" id="alphabetList"></aside>
+      <div class="alphabet-detail" id="alphabetDetail">
+        <p class="muted">
+          Select a letter on the left to see its forms and a short description of the sound.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Brightness slider -->
+  <div class="brightness-panel">
+    <span>Dim</span>
+    <input type="range" id="brightnessSlider" min="70" max="130" value="100" />
+    <span>Bright</span>
   </div>
 
   <script src="script.js"></script>
