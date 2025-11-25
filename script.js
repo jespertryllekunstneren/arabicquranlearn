@@ -152,7 +152,7 @@ const stripHarakat = s => s.replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g,"");
 const mapPho = ch => PHONEME_MAP[ch] || ch;
 function expectedLettersFor(i){ return currentLesson.wordsSimple[i].split(""); }
 
-/***** VIEW HELPERS (screens) *****/
+/***** VIEW HELPERS *****/
 function showStart(){
   $("#startScreen").classList.remove("hidden");
   $("#appScreen").classList.add("hidden");
@@ -470,6 +470,68 @@ function showLetterDetail(index){
   `;
 }
 
+/***** BRIGHTNESS PANEL DRAG *****/
+function enableBrightnessDrag() {
+  const panel = document.querySelector(".brightness-panel");
+  if (!panel) return;
+
+  let dragging = false;
+  let startX = 0;
+  let startY = 0;
+  let startLeft = 0;
+  let startTop = 0;
+
+  function pointerDown(e) {
+    dragging = true;
+
+    const point = e.touches ? e.touches[0] : e;
+    startX = point.clientX;
+    startY = point.clientY;
+
+    const rect = panel.getBoundingClientRect();
+    startLeft = rect.left;
+    startTop = rect.top;
+
+    // Skift til left/top, så vi kan flytte frit
+    panel.style.left = startLeft + "px";
+    panel.style.top = startTop + "px";
+    panel.style.right = "auto";
+    panel.style.bottom = "auto";
+
+    document.addEventListener("mousemove", pointerMove);
+    document.addEventListener("mouseup", pointerUp);
+    document.addEventListener("touchmove", pointerMove, { passive:false });
+    document.addEventListener("touchend", pointerUp);
+  }
+
+  function pointerMove(e) {
+    if (!dragging) return;
+
+    const point = e.touches ? e.touches[0] : e;
+    const dx = point.clientX - startX;
+    const dy = point.clientY - startY;
+
+    const newLeft = startLeft + dx;
+    const newTop = startTop + dy;
+
+    panel.style.left = newLeft + "px";
+    panel.style.top = newTop + "px";
+
+    if (e.touches) e.preventDefault(); // undgå scroll mens man trækker på mobil
+  }
+
+  function pointerUp() {
+    dragging = false;
+    document.removeEventListener("mousemove", pointerMove);
+    document.removeEventListener("mouseup", pointerUp);
+    document.removeEventListener("touchmove", pointerMove);
+    document.removeEventListener("touchend", pointerUp);
+  }
+
+  panel.addEventListener("mousedown", pointerDown);
+  panel.addEventListener("touchstart", pointerDown, { passive:true });
+}
+
 /***** BOOT + EVENTS *****/
 function bootApp(){
   renderAyah();
@@ -496,6 +558,16 @@ function bootApp(){
   $("#nextWord").onclick = ()=> goWord(+1);
 
   $("#homeBtn").onclick = ()=> showStart();
+
+  // hide / show keyboard
+  const kb = $("#keyboard");
+  const kbBtn = $("#toggleKeyboard");
+  if (kb && kbBtn) {
+    kbBtn.onclick = () => {
+      const isHidden = kb.classList.toggle("hidden");
+      kbBtn.textContent = isHidden ? "Show keyboard" : "Hide keyboard";
+    };
+  }
 }
 
 function init(){
@@ -515,6 +587,9 @@ function init(){
       document.documentElement.style.setProperty("--brightness", String(val));
     });
   }
+
+  // gør brightness-bjælken flytbar (mus + touch)
+  enableBrightnessDrag();
 
   $("#startScreen").classList.remove("hidden");
   $("#appScreen").classList.add("hidden");

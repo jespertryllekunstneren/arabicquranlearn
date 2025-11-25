@@ -34,26 +34,32 @@ header h1{margin:0 0 6px;font-size:28px}
   opacity:0.9;
 }
 
-/* Brightness panel */
-
+/* Brightness panel – lille pille nederst til højre, kan trækkes */
 .brightness-panel{
   position:fixed;
-  right:16px;
-  bottom:16px;
-  padding:6px 10px;
+  right:12px;
+  bottom:12px;
+  padding:4px 10px;
   border-radius:999px;
-  background:#071610;
+  background:rgba(7,22,16,0.95);
   border:1px solid #123628;
   display:flex;
-  gap:6px;
+  gap:8px;
   align-items:center;
+  justify-content:center;
   font-size:11px;
   color:var(--muted);
-  z-index:20;
+  z-index:30;
+  cursor:grab;
+}
+
+.brightness-panel:active{
+  cursor:grabbing;
 }
 
 .brightness-panel input[type=range]{
   accent-color:var(--accent);
+  max-width:140px;
 }
 
 /* START / CATALOG */
@@ -370,13 +376,14 @@ header h1{margin:0 0 6px;font-size:28px}
 
 .keyboard{
   position:sticky;
-  bottom:0;
+  bottom:60px; /* lidt luft over brightness-pill på desktop */
   background:#040f0a;
   border-top:1px solid #113627;
   margin-top:14px;
   padding:10px;
   border-radius:12px;
   overflow-x:auto;
+  z-index:15;
 }
 
 .krow{
@@ -510,10 +517,9 @@ header h1{margin:0 0 6px;font-size:28px}
 /* --------- MOBILE LAYOUT --------- */
 
 @media (max-width: 600px) {
-  /* mindre margin på små skærme */
   .wrap{
     margin:16px auto;
-    padding:0 10px 80px; /* ekstra bund-plads til keyboardet */
+    padding:0 10px 90px; /* plads til keyboard + brightness-pill */
   }
 
   header h1{
@@ -539,30 +545,31 @@ header h1{margin:0 0 6px;font-size:28px}
     justify-content:flex-start;
   }
 
-  /* Keyboard: mindre og sidder i bunden, men fylder ikke alt */
+  /* Keyboard: mindre, fast, fylder mindre og kan scrolles */
   .keyboard{
     position:fixed;
     left:0;
     right:0;
-    bottom:0;
+    bottom:46px;   /* lige over brightness-pill */
     border-radius:12px 12px 0 0;
-    padding:6px 4px;
+    padding:4px 2px;
     box-shadow:0 -8px 30px rgba(0,0,0,.6);
-    z-index:15;
+    z-index:20;
+    max-height:38vh;      /* max ~40% af skærmen */
+    overflow-y:auto;
   }
 
   .krow{
-    gap:6px;
+    gap:4px;
   }
 
   .key{
-    min-width:46px;
-    padding:10px 6px;
-    font-size:28px;
-    border-radius:10px;
+    min-width:40px;
+    padding:8px 4px;
+    font-size:24px;
+    border-radius:8px;
   }
 
-  /* dots + tekst lidt mindre */
   #surahLabel{
     font-size:12px;
   }
@@ -571,18 +578,19 @@ header h1{margin:0 0 6px;font-size:28px}
     height:8px;
   }
 
-  /* brightness-bjælken lidt op, så den ikke rammer keyboardet */
+  /* brightness-bjælken mindre på mobil, kan stadig trækkes */
   .brightness-panel{
-    bottom:76px;
-    right:10px;
-    transform:scale(.9);
+    bottom:8px;
+    right:8px;
+    padding:3px 8px;
+    font-size:10px;
   }
 }
 
 @media (max-width: 400px) {
   .key{
-    min-width:40px;
-    font-size:24px;
+    min-width:36px;
+    font-size:22px;
   }
 
   .ayah{
